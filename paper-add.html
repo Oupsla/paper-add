@@ -72,7 +72,8 @@
         label="[[labelInput]]"
         name="element"
         error-message="[[errorInput]]"
-        required></paper-input>
+        required
+        on-keydown="_keyPressed"></paper-input>
       <paper-icon-button
         on-tap="_addItem"
         class="action-button add-button"
@@ -117,6 +118,12 @@
             value: () => []
           }
         };
+      }
+
+      _keyPressed(e) {
+        if (e.which == 13 || e.keyCode == 13) {
+          this._addItem(e);
+        }
       }
 
       _addItem(e) {

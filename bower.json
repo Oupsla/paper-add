@@ -1,6 +1,6 @@
 {
   "name": "paper-add",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Quick add element to list",
   "main": "paper-add.html",
   "dependencies": {
