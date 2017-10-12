@@ -1,4 +1,12 @@
 <link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../polymer/lib/mixins/gesture-event-listeners.html">
+
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="paper-add-icons.html">
 
 <dom-module id="paper-add">
   <template>
@@ -6,8 +14,66 @@
       :host {
         display: block;
       }
+
+      .div-item {
+        @apply --layout-horizontal;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: left;
+        align-items: left;
+      }
+
+      .paper-item {
+        min-width: 170px;
+      }
+
+      .action-button {
+        margin-left: 10px;
+        vertical-align: middle;
+        --paper-icon-button: {
+          width: 45px;
+          height: 45px;
+        }
+      }
+
+      .add-button {
+        margin-top: 15px;
+        --paper-icon-button: {
+          color: white;
+          background-color: var(--paper-blue-500);
+        }
+      }
+
+      .delete-button {
+        --paper-icon-button: {
+          color: white;
+          background-color: var(--paper-red-500);
+        }
+      }
+
     </style>
-    <h2>Hello [[prop1]]!</h2>
+
+    <template is="dom-repeat" items="{{items}}">
+        <div class="div-item">
+          <paper-item class="paper-item">[[item]]</paper-item>
+          <paper-icon-button
+            on-tap="_deleteItem"
+            class="action-button delete-button"
+            icon="paper-add-icons:delete"
+            aria-label="Recherche"></paper-icon-button>
+        </div>
+    </template>
+
+    <div class="div-item">
+      <paper-input id="newElementInput" label="Nouvel élément" name="element" error-message="Requis" required></paper-input>
+      <paper-icon-button
+        on-tap="_addItem"
+        class="action-button add-button"
+        icon="paper-add-icons:add"
+        aria-label="Recherche"></paper-icon-button>
+    </div>
+
   </template>
 
   <script>
@@ -19,15 +85,29 @@
      * @polymer
      * @demo demo/index.html
      */
-    class PaperAdd extends Polymer.Element {
+    class PaperAdd extends Polymer.GestureEventListeners(Polymer.Element) {
       static get is() { return 'paper-add'; }
       static get properties() {
         return {
-          prop1: {
-            type: String,
-            value: 'paper-add'
+          items: {
+            type: Array,
+            notify: true,
+            value: () => []
           }
         };
+      }
+
+      _addItem(e) {
+        if(!this.$.newElementInput.validate()) {
+          return;
+        }
+        this.push('items', this.$.newElementInput.value);
+        this.$.newElementInput.value = '';
+      }
+
+      _deleteItem(e) {
+        let index = this.items.indexOf(e.model.item);
+        this.splice('items', index, 1);
       }
     }
 
