@@ -1,0 +1,36 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="paper-add">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]!</h2>
+  </template>
+
+  <script>
+    /**
+     * `paper-add`
+     * Quick add element to list
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class PaperAdd extends Polymer.Element {
+      static get is() { return 'paper-add'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'paper-add'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(PaperAdd.is, PaperAdd);
+  </script>
+</dom-module>
