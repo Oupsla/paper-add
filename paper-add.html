@@ -66,12 +66,18 @@
     </template>
 
     <div class="div-item">
-      <paper-input id="newElementInput" label="Nouvel élément" name="element" error-message="Requis" required></paper-input>
+      <paper-input
+        id="newElementInput"
+        type="[[typeInput]]"
+        label="[[labelInput]]"
+        name="element"
+        error-message="[[errorInput]]"
+        required></paper-input>
       <paper-icon-button
         on-tap="_addItem"
         class="action-button add-button"
         icon="paper-add-icons:add"
-        aria-label="Recherche"></paper-icon-button>
+        aria-label="Add"></paper-icon-button>
     </div>
 
   </template>
@@ -89,6 +95,22 @@
       static get is() { return 'paper-add'; }
       static get properties() {
         return {
+
+          typeInput: {
+            type: String,
+            value: 'text'
+          },
+
+          labelInput: {
+            type: String,
+            value: 'New element'
+          },
+
+          errorInput: {
+            type: String,
+            value: 'Required'
+          },
+
           items: {
             type: Array,
             notify: true,
