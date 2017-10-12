@@ -112,12 +112,28 @@
             value: 'Required'
           },
 
+          initialItems: {
+            type: Array,
+            observer: '_onInitialChange'
+          },
+
           items: {
             type: Array,
             notify: true,
             value: () => []
           }
         };
+      }
+
+      _onInitialChange(value) {
+        if(!value || !Array.isArray) {
+          console.warn('Paper-add: initalValue is not an Array');
+          return;
+        }
+        this.splice('items', 0, this.items.length);
+        for (var i = 0; i < value.length; i++) {
+          this.push('items', value[i]);
+        }
       }
 
       _keyPressed(e) {
