@@ -51,34 +51,19 @@
           background-color: var(--paper-red-500);
         }
       }
-
     </style>
 
     <template is="dom-repeat" items="{{items}}">
-        <div class="div-item">
-          <paper-item class="paper-item">[[item]]</paper-item>
-          <paper-icon-button
-            on-tap="_deleteItem"
-            class="action-button delete-button"
-            icon="paper-add-icons:delete"
-            aria-label="Recherche"></paper-icon-button>
-        </div>
+      <div class="div-item">
+        <paper-item class="paper-item">[[item]]</paper-item>
+        <paper-icon-button on-tap="_deleteItem" class="action-button delete-button" icon="paper-add-icons:delete" aria-label="Recherche"></paper-icon-button>
+      </div>
     </template>
 
     <div class="div-item">
-      <paper-input
-        id="newElementInput"
-        type="[[typeInput]]"
-        label="[[labelInput]]"
-        name="element"
-        error-message="[[errorInput]]"
-        required
-        on-keydown="_keyPressed"></paper-input>
-      <paper-icon-button
-        on-tap="_addItem"
-        class="action-button add-button"
-        icon="paper-add-icons:add"
-        aria-label="Add"></paper-icon-button>
+      <paper-input id="newElementInput" type="[[typeInput]]" label="[[labelInput]]" name="element" error-message="[[errorInput]]"
+        required on-keydown="_keyPressed"></paper-input>
+      <paper-icon-button on-tap="_addItem" class="action-button add-button" icon="paper-add-icons:add" aria-label="Add"></paper-icon-button>
     </div>
 
   </template>
@@ -112,28 +97,12 @@
             value: 'Required'
           },
 
-          initialItems: {
-            type: Array,
-            observer: '_onInitialChange'
-          },
-
           items: {
             type: Array,
             notify: true,
             value: () => []
           }
         };
-      }
-
-      _onInitialChange(value) {
-        if(!value || !Array.isArray) {
-          console.warn('Paper-add: initalValue is not an Array');
-          return;
-        }
-        this.splice('items', 0, this.items.length);
-        for (var i = 0; i < value.length; i++) {
-          this.push('items', value[i]);
-        }
       }
 
       _keyPressed(e) {
@@ -143,7 +112,7 @@
       }
 
       _addItem(e) {
-        if(!this.$.newElementInput.validate()) {
+        if (!this.$.newElementInput.validate()) {
           return;
         }
         this.push('items', this.$.newElementInput.value);

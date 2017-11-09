@@ -1,8 +1,12 @@
 {
   "name": "paper-add",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Quick add element to list",
+  "authors": [
+    "Oupsla <nicolas_delperdange@hotmail.com>"
+  ],
   "main": "paper-add.html",
+  "license": "MIT",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
     "paper-input": "^2.0.2",
